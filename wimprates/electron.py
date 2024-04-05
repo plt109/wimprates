@@ -207,7 +207,14 @@ def rate_srdm(erec, n, l, mw, sigma_dme,
     eb = binding_es_for_dme(n, l)
 
     # Only heavy mediator option available for now
-    f_dm = lambda q:1
+    if mediator_type=='heavy_dp':
+        f_dm = lambda q:1
+    elif mediator_type=='light_dp':
+        f_dm = lambda q: (nu.alphaFS * nu.me * nu.c0 / q)**2
+    elif mediator_type==None:
+        f_dm = lambda q:1
+    else:
+        raise ValueError(f"Unrecognised SRDM type: {mediator_type}")
 
     # No bounds are given for the q integral
     # but the form factors are only specified in a limited range of q
