@@ -43,7 +43,7 @@ class SolarReflectedDMModel:
             tmp = pickle.load(open(f'{fdata}/data/srdm/consolidated_fluxes_heavydarkphoton.pickle', 'rb'))
         elif self.mediator_type=='light_dp':
             tmp = pickle.load(open(f'{fdata}/data/srdm/consolidated_fluxes_lightdarkphoton.pickle', 'rb'))
-        elif self.mediator_type is None:
+        elif self.mediator_type=='heavy_leptophillic':
             tmp = pickle.load(open(f'{fdata}/data/srdm/consolidated_fluxes.pickle', 'rb'))
         else:
             raise ValueError(f"Unrecognised SRDM type: {self.mediator_type}")
