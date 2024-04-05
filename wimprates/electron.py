@@ -211,7 +211,7 @@ def rate_srdm(erec, n, l, mw, sigma_dme,
         f_dm = lambda q:1
     elif mediator_type=='light_dp':
         f_dm = lambda q: (nu.alphaFS * nu.me * nu.c0 / q)**2
-    elif mediator_type==None:
+    elif mediator_type is None:
         f_dm = lambda q:1
     else:
         raise ValueError(f"Unrecognised SRDM type: {mediator_type}")
