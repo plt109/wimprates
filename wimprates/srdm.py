@@ -24,9 +24,10 @@ class SolarReflectedDMModel:
         :param sigma_dme -- dm-electron cross section with nu units assigned
     """
 
-    def __init__(self, mw, sigma_dme,):
+    def __init__(self, mw, sigma_dme, mediator_type):
         self.mw = mw
         self.sigma_dme = sigma_dme
+        self.mediator_type = mediator_type
         self.diff_flux_df = self.load_flux()
 
     def load_flux(self):
@@ -36,9 +37,16 @@ class SolarReflectedDMModel:
         Returns dataframe containing differential flux in units of
         [events/(km/s)/cm2/s] as a function of dm speed in units of [km/s].
         """
+
         fdata = os.path.dirname(os.path.realpath(__file__))
-        
-        tmp = pickle.load(open(f'{fdata}/data/srdm/consolidated_fluxes.pickle', 'rb'))
+        if self.mediator_type=='heavy_dp':
+            tmp = pickle.load(open(f'{fdata}/data/srdm/consolidated_fluxes_heavydarkphoton.pickle', 'rb'))
+        elif self.mediator_type=='light_dp':
+            tmp = pickle.load(open(f'{fdata}/data/srdm/consolidated_fluxes_lightdarkphoton.pickle', 'rb'))
+        elif self.mediator_type is None:
+            tmp = pickle.load(open(f'{fdata}/data/srdm/consolidated_fluxes.pickle', 'rb'))
+        else:
+            raise ValueError(f"Unrecognised SRDM type: {self.mediator_type}")
 
         xsec = self.sigma_dme/nu.cm**2
         mass = self.mw/(nu.GeV/nu.c0**2)

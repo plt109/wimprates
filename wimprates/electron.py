@@ -191,7 +191,7 @@ def rate_dme(erec, n, l, mw, sigma_dme,
 @export
 @wr.vectorize_first
 def rate_srdm(erec, n, l, mw, sigma_dme,
-             srdm_model=None, **kwargs):
+        mediator_type=None, srdm_model=None, **kwargs):
     """Return differential rate of dark matter electron scattering vs energy
     (i.e. dr/dE, not dr/dlogE)
     :param erec: Electronic recoil energy
@@ -202,7 +202,7 @@ def rate_srdm(erec, n, l, mw, sigma_dme,
     momentum transfer q=0 in cm2
     :param srdm_model: class (default to standard halo model) containing velocity distribution
     """
-    srdm_model = wr.SolarReflectedDMModel(mw, sigma_dme) if srdm_model is None else srdm_model
+    srdm_model = wr.SolarReflectedDMModel(mw, sigma_dme, mediator_type) if srdm_model is None else srdm_model
     shell = shell_str(n, l)
     eb = binding_es_for_dme(n, l)
 
